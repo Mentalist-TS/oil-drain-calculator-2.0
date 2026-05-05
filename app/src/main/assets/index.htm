@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)file:///D:/Downloads/deepseek_html_20260504_514258%20(3).html -->
+<html lang="uk"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Калькулятор зливу масла трансформатора</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto', system-ui, -apple-system, sans-serif;
+            background: #e8f0e8;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .app-container {
+            max-width: 500px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 32px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 16px;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #1b5e20;
+            text-align: center;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #5f6368;
+            font-size: 14px;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #202124;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 16px;
+            border: 2px solid #dadce0;
+            border-radius: 16px;
+            transition: all 0.2s;
+            background: white;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #2e7d32;
+            box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+        }
+
+        button {
+            width: 100%;
+            background: #2e7d32;
+            color: white;
+            border: none;
+            padding: 16px;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 32px;
+            margin: 16px 0;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: #1b5e20;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .result-card {
+            background: #e8f5e9;
+            border-radius: 24px;
+            padding: 20px;
+            margin-top: 8px;
+        }
+
+        .result-item {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .result-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .result-label {
+            font-size: 13px;
+            color: #5f6368;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .result-value {
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .result-unit {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .divider {
+            height: 1px;
+            background: #c8e6c9;
+            margin: 16px 0;
+        }
+
+        .info-card {
+            background: #f1f3f4;
+            border-radius: 20px;
+            padding: 16px;
+        }
+
+        .info-title {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #3c4043;
+        }
+
+        .info-text {
+            font-size: 11px;
+            color: #5f6368;
+            font-family: monospace;
+            margin-bottom: 6px;
+        }
+
+        .error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 12px;
+            border-radius: 16px;
+            font-size: 14px;
+            margin: 12px 0;
+            text-align: center;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 11px;
+            color: #9aa0a6;
+            margin-top: 16px;
+        }
+
+        .highlight-green {
+            color: #1b5e20;
+        }
+
+        .highlight-blue {
+            color: #1565c0;
+        }
+
+        .highlight-orange {
+            color: #e65100;
+        }
+    </style>
+</head>
+<body>
+<div class="app-container">
+    <div class="card">
+        <h1>
+            <span>🛢️</span>
+            <span>Калькулятор зливу масла</span>
+        </h1>
+        <div class="subtitle">Герметичні трансформатори | Мінеральне масло</div>
+
+        <div class="input-group">
+            <label>📦 Об'єм масла при виміряній температурі (л)</label>
+            <input type="number" id="volume" placeholder="наприклад: 460" step="any" value="460">
+        </div>
+
+        <div class="input-group">
+            <label>🌡️ Температура масла перед герметизацією (°C)</label>
+            <input type="number" id="temperature" placeholder="наприклад: 20" step="any" value="20">
+        </div>
+
+        <button id="calculateBtn">РОЗРАХУВАТИ</button>
+
+        <div id="errorMessage" style="display: block;" class="error">Введіть коректні числа</div>
+
+        <div id="resultBlock" style="display: none;">
+            <div class="result-card">
+                <!-- Показник 1: Злив при поточній температурі -->
+                <div class="result-item">
+                    <div class="result-label">✅ ЗЛИТИ ПІСЛЯ ЗАПОВНЕННЯ (ДО ОСТАТОЧНОЇ ГЕРМЕТИЗАЦІЇ)</div>
+                    <div class="result-value highlight-green">
+                        <span id="drainValue">0.1</span>
+                        <span class="result-unit">л</span>
+                    </div>
+                    <div style="font-size: 12px; color: #5f6368; margin-top: 4px;">
+                        при виміряній температурі <span id="currentTempLabel">0.0</span>°C
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <!-- Показник 2: Вага масла при 20°C (паспортне значення) -->
+                <div class="result-item">
+                    <div class="result-label">📌 ВАГА МАСЛА ПРИ 20°C (паспортне значення)</div>
+                    <div class="result-value highlight-blue">
+                        <span id="massValue">2.7</span>
+                        <span class="result-unit">кг</span>
+                    </div>
+                    <div style="font-size: 11px; color: #5f6368; margin-top: 4px;">
+                        занести в паспорт / на заводську табличку
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <!-- Показник 3: Нормативний злив при 20°C -->
+                <div class="result-item">
+                    <div class="result-label">📐 НЕОБХІДНИЙ ОБ'ЄМ ЗЛИТТЯ МАСЛА ПРИ 20°C</div>
+                    <div class="result-value highlight-orange">
+                        <span id="normativeDrainValue">0.0</span>
+                        <span class="result-unit">л</span>
+                    </div>
+                    <div style="font-size: 12px; color: #5f6368; margin-top: 4px;">
+                        після герметизації (якщо бак заповнений при 20°C)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <div class="info-title">📐 Формули за корпоративним стандартом</div>
+            <div class="info-text">V<sub>злив(T)</sub> = V(T) · [0,014 − β·(T−20)]</div>
+            <div class="info-text">m<sub>20°C</sub> = V(T) · [1 − β·(T−20)] · ρ</div>
+            <div class="info-text">V<sub>злив(20°C)</sub> = V(20) · 0,014</div>
+            <div class="info-text">β = 0.0007 (1/°C) | ρ = 0.880 кг/л (при 20°C)</div>
+            <div class="info-text">🎯 Ціль: тиск при 20°C = -0,02 … -0,05 МПа</div>
+        </div>
+        <div class="footer">
+            Корпоративний стандарт підприємства
+        </div>
+    </div>
+</div>
+
+<script>
+    // Константи
+    const BETA = 0.0007;        // коефіцієнт теплового розширення (1/°C)
+    const K = 0.014;            // базовий коефіцієнт зливу при 20°C
+    const DENSITY_20 = 0.880;   // густина мінерального масла при 20°C (кг/л)
+
+    /**
+     * Округлення до 0.1
+     */
+    function roundToTenth(value) {
+        return Math.round(value * 10) / 10;
+    }
+
+    /**
+     * 1. Розрахунок об'єму зливу при поточній температурі
+     */
+    function calculateDrain(volumeAtT, temperature) {
+        let drain = volumeAtT * (K - BETA * (temperature - 20));
+        if (drain < 0) drain = 0;
+        return roundToTenth(drain);
+    }
+
+    /**
+     * 2. Розрахунок маси масла при 20°C (паспортне значення)
+     */
+    function calculateMassAt20(volumeAtT, temperature) {
+        const v20 = volumeAtT * (1 - BETA * (temperature - 20));
+        let mass = v20 * DENSITY_20;
+        if (mass < 0) mass = 0;
+        return roundToTenth(mass);
+    }
+
+    /**
+     * 3. Розрахунок нормативного зливу при 20°C
+     * (скільки злити, якщо бак заповнений при 20°C)
+     */
+    function calculateNormativeDrainAt20(volumeAtT, temperature) {
+        const v20 = volumeAtT * (1 - BETA * (temperature - 20));
+        let drain20 = v20 * K;
+        if (drain20 < 0) drain20 = 0;
+        return roundToTenth(drain20);
+    }
+
+    /**
+     * Перевірка коректності введених даних
+     */
+    function validateInputs(volume, temperature) {
+        if (isNaN(volume) || isNaN(temperature)) {
+            return "Введіть коректні числа";
+        }
+        if (volume <= 0) {
+            return "Об'єм масла має бути більше 0";
+        }
+        if (temperature < -30 || temperature > 60) {
+            return "Температура має бути в межах -30..60°C";
+        }
+        return null;
+    }
+
+    /**
+     * Оновлення інтерфейсу
+     */
+    function updateUI() {
+        const volumeInput = document.getElementById('volume');
+        const tempInput = document.getElementById('temperature');
+        const errorDiv = document.getElementById('errorMessage');
+        const resultBlock = document.getElementById('resultBlock');
+
+        const volume = parseFloat(volumeInput.value);
+        const temperature = parseFloat(tempInput.value);
+
+        const errorMsg = validateInputs(volume, temperature);
+
+        if (errorMsg) {
+            errorDiv.style.display = 'block';
+            errorDiv.innerText = errorMsg;
+            resultBlock.style.display = 'none';
+            return;
+        }
+
+        errorDiv.style.display = 'none';
+
+        const drain = calculateDrain(volume, temperature);
+        const massAt20 = calculateMassAt20(volume, temperature);
+        const normativeDrain20 = calculateNormativeDrainAt20(volume, temperature);
+
+        document.getElementById('drainValue').innerText = drain.toFixed(1);
+        document.getElementById('massValue').innerText = massAt20.toFixed(1);
+        document.getElementById('normativeDrainValue').innerText = normativeDrain20.toFixed(1);
+        document.getElementById('currentTempLabel').innerText = temperature.toFixed(1);
+
+        resultBlock.style.display = 'block';
+    }
+
+    // Підключення обробників подій
+    document.getElementById('calculateBtn').addEventListener('click', updateUI);
+    
+    // Автоматичний розрахунок при завантаженні сторінки
+    window.addEventListener('load', updateUI);
+
+    // Автоматичний перерахунок при зміні полів
+    document.getElementById('volume').addEventListener('input', updateUI);
+    document.getElementById('temperature').addEventListener('input', updateUI);
+</script>
+
+</body></html>
